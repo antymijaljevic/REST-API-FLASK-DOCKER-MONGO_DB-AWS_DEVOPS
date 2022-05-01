@@ -1,0 +1,50 @@
+A relational database management system (RDBMS)
+
+# install mongoDB on WSL
+https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database#install-mongodb
+
+# run mongo database
+sudo mongod --dbpath ~/data/db
+mongo
+
+# in server
+
+# db
+db.help()
+show dbs 
+use [db]
+db.stats()
+
+
+# working with collections
+show collections
+db.getCollectionNames()
+db.createCollection("mycollection")
+db.createCollection("mycol", {capped: true, size:3, max:3})
+db.magicalCollection.insert({"name": "this is new!"})
+db.delete.drop()
+db.mycollection.insert({"username":"abc", Password:"xyz"})
+db.mycollection.insert([{},{},{}])
+
+
+# query documents
+db.mycollection.find()
+db.mycollection.find().pretty()
+db.mycol.find({"name":"Ante"}).pretty()
+db.mycol.find({"likes":{$lt:60}})
+db.mycol.find({"likes":{$lte:100}}).pretty()
+db.mycol.find({"likes":{$gt:50}}).pretty()
+db.mycol.find({"likes":{$gte:50}}).pretty()
+db.mycol.find({"likes":{$ne:1}}).pretty()
+
+# and in mongoDB
+db.mycollection.find({ $and:[ {"likes":{$gt:20} }, {"likes":{$lt:100}} ] }).pretty()
+db.mycollection.find({ $or: [{"age":29},{"plin":"skup"}]  }).pretty()
+
+# updating, removing, limiting and sorting documents in mongoDB
+db.mycollection.update({"name":"Martina"},{$set:{"age":40}})
+db.mycollection.remove({"_id" : ObjectId("624de3cf629aa6e1b6a8683d")})
+db.mycollection.find({"name":1,_id:0}).pretty()
+db.mycollection.find().pretty().limit(2)
+db.mycollection.find().pretty().sort({"age":-1})
+db.mycollection.find().pretty().sort({"age":1})
